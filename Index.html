@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>for Alia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT ME — find the CONFIG object near the bottom of the
+     <script> tag to change the names, the reasons, the notes,
+     and the countdown date. Everything else just works.
+     ============================================================ */
+
+  :root{
+    --blush-100:#FFF3EC;
+    --blush-200:#FBDCE4;
+    --blush-300:#F3B8C9;
+    --wine-900:#5A2233;
+    --wine-700:#7A3247;
+    --rose-500:#D9436C;
+    --rose-600:#B92F58;
+    --rose-050:#FFF9F6;
+    --paper:#FFFBF8;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Outfit',sans-serif;
+    color:var(--wine-900);
+    background:
+      radial-gradient(circle at 15% 10%, var(--blush-200), transparent 55%),
+      radial-gradient(circle at 90% 85%, var(--blush-300), transparent 50%),
+      var(--blush-100);
+  }
+
+  .ambient{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .ambient span{
+    position:absolute; bottom:-40px; font-size:16px; color:var(--wine-700);
+    opacity:0.14; animation:drift linear infinite;
+  }
+  @keyframes drift{ to{ transform:translateY(-110vh) rotate(20deg); opacity:0; } }
+
+  section{
+    position:relative;
+    z-index:1;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:56px 22px;
+  }
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--rose-500);
+    font-weight:600;
+    margin:0 0 16px;
+  }
+
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(28px,7vw,40px);
+    line-height:1.25;
+    margin:0 0 14px;
+  }
+
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(22px,6vw,28px);
+    line-height:1.3;
+    margin:0 0 28px;
+  }
+
+  p.sub{
+    font-size:15px;
+    color:var(--wine-700);
+    line-height:1.6;
+    max-width:340px;
+    margin:0 auto;
+  }
+
+  /* ---- hero ---- */
+  #hero .heart-mark{
+    width:88px; height:88px; border-radius:50%;
+    background:linear-gradient(160deg, var(--blush-300), var(--rose-500));
+    display:flex; align-items:center; justify-content:center;
+    font-size:34px; color:var(--rose-050);
+    box-shadow:0 10px 26px -10px rgba(217,67,108,0.55);
+    margin:0 0 24px;
+    animation:heartbeat 1.8s ease-in-out infinite;
+    position:relative;
+    cursor:pointer;
+  }
+  #hero .heart-mark.click-beat{
+    animation:heartbeat 1.8s ease-in-out infinite, click-thump 0.35s ease-out;
+  }
+  @keyframes click-thump{
+    0%{ transform:scale(1); }
+    35%{ transform:scale(1.35); }
+    100%{ transform:scale(1); }
+  }
+  @keyframes heartbeat{
+    0%,100%{ transform:scale(1); }
+    18%{ transform:scale(1.1); }
+    32%{ transform:scale(0.97); }
+    45%{ transform:scale(1.06); }
+    60%{ transform:scale(1); }
+  }
+  .wave-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:2px solid var(--rose-500);
+    opacity:0.55;
+    pointer-events:none;
+    animation:wave-expand 1s ease-out forwards;
+  }
+  @keyframes wave-expand{
+    0%{ transform:scale(1); opacity:0.55; }
+    100%{ transform:scale(2.6); opacity:0; }
+  }
+  .screen-wave{
+    position:fixed;
+    left:0; top:0;
+    width:40px; height:40px;
+    border-radius:50%;
+    border:2px solid var(--rose-500);
+    opacity:0.45;
+    pointer-events:none;
+    z-index:50;
+    transform:translate(-50%,-50%) scale(0.3);
+    animation:screen-wave-expand 1.2s cubic-bezier(.15,.6,.35,1) forwards;
+  }
+  @keyframes screen-wave-expand{
+    0%{ transform:translate(-50%,-50%) scale(0.3); opacity:0.45; }
+    100%{ transform:translate(-50%,-50%) scale(var(--end-scale)); opacity:0; }
+  }
+  .scroll-cue{
+    margin-top:44px; font-size:12px; color:var(--wine-700); opacity:0.55;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .scroll-cue span{ animation:bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
+
+  /* ---- reasons (flip cards) ---- */
+  .reasons{
+    width:100%; max-width:380px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .reason-card{
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:18px;
+    padding:18px 20px;
+    text-align:left;
+    cursor:pointer;
+    user-select:none;
+    transition:border-color 0.2s ease, transform 0.15s ease;
+  }
+  .reason-card:active{ transform:scale(0.98); }
+  .reason-card .num{
+    font-family:'Fraunces',serif;
+    font-size:13px;
+    color:var(--rose-500);
+    font-weight:600;
+    margin-bottom:6px;
+    display:block;
+  }
+  .reason-card .front{
+    font-size:14.5px; font-weight:500; color:var(--wine-900);
+  }
+  .reason-card .back{
+    display:none;
+    font-size:14px; color:var(--wine-700); margin-top:8px; line-height:1.55;
+  }
+  .reason-card.open .back{ display:block; }
+  .reason-card.open{ border-color:var(--rose-500); }
+
+  /* ---- timeline ---- */
+  .timeline{
+    width:100%; max-width:380px;
+    position:relative;
+    text-align:left;
+    padding-left:26px;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:7px; top:6px; bottom:6px;
+    width:2px;
+    background:var(--blush-300);
+  }
+  .tl-item{
+    position:relative;
+    padding-bottom:26px;
+  }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute;
+    left:-26px; top:2px;
+    width:16px; height:16px;
+    border-radius:50%;
+    background:var(--rose-500);
+    border:3px solid var(--blush-100);
+    box-shadow:0 0 0 1.5px var(--blush-300);
+  }
+  .tl-date{
+    font-size:11.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--rose-500);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .tl-text{
+    font-size:14.5px;
+    color:var(--wine-900);
+    line-height:1.55;
+  }
+
+  /* ---- compliment generator ---- */
+  .compliment-card{
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:20px;
+    padding:26px 24px;
+    max-width:340px;
+    min-height:76px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:16px;
+    color:var(--wine-900);
+    line-height:1.6;
+    margin-bottom:22px;
+  }
+  .compliment-btn{
+    padding:13px 28px;
+    background:var(--rose-500);
+    color:var(--rose-050);
+    border:none;
+    border-radius:999px;
+    font-family:'Outfit',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+    box-shadow:0 10px 22px -8px rgba(217,67,108,0.6);
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .compliment-btn:hover{ background:var(--rose-600); }
+  .compliment-btn:active{ transform:scale(0.96); }
+  .meter-wrap{
+    width:min(260px,70vw);
+    height:min(260px,70vw);
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    margin:8px 0 26px;
+  }
+  #loveBtn{
+    width:100%; height:100%; border-radius:50%;
+    border:none; cursor:pointer;
+    background:radial-gradient(circle at 35% 30%, var(--blush-300), var(--rose-500) 70%);
+    color:var(--rose-050);
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    box-shadow:0 16px 34px -14px rgba(217,67,108,0.6);
+    transition:transform 0.12s ease;
+  }
+  #loveBtn:active{ transform:scale(0.94); }
+  #loveBtn.milestone{ animation:glow 1s ease-in-out 2; }
+  @keyframes glow{
+    0%,100%{ box-shadow:0 16px 34px -14px rgba(217,67,108,0.6); }
+    50%{ box-shadow:0 16px 46px -8px rgba(217,67,108,0.9); }
+  }
+  .meter-count{ font-size:13px; color:var(--wine-700); }
+
+  .burst-heart{
+    position:fixed;
+    pointer-events:none;
+    font-size:16px;
+    color:var(--rose-500);
+    z-index:5;
+    animation:burst 0.9s ease-out forwards;
+  }
+  @keyframes burst{
+    0%{ transform:translate(0,0) scale(0.6); opacity:1; }
+    100%{ transform:var(--burst-end) scale(1.1); opacity:0; }
+  }
+
+  /* ---- countdown ---- */
+  .countdown{
+    display:flex; gap:12px; margin:6px 0 8px; flex-wrap:wrap; justify-content:center;
+  }
+  .cd-box{
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:14px;
+    padding:14px 16px;
+    min-width:66px;
+  }
+  .cd-box .n{ font-family:'Fraunces',serif; font-size:24px; display:block; }
+  .cd-box .l{ font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--wine-700); }
+
+  /* ---- note (envelope) ---- */
+  .envelope{
+    width:220px;
+    height:150px;
+    cursor:pointer;
+    position:relative;
+    margin:0 auto 18px;
+    transition:transform 0.25s ease;
+  }
+  .envelope:hover{ transform:translateY(-3px); }
+  .envelope-body{
+    position:absolute; inset:0;
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:10px;
+    box-shadow:0 16px 30px -16px rgba(90,34,51,0.35);
+  }
+  .envelope-flap{
+    position:absolute;
+    top:0; left:0; right:0;
+    height:78px;
+    background:var(--blush-200);
+    border:1.5px solid var(--blush-300);
+    border-radius:10px 10px 0 0;
+    clip-path:polygon(0 0, 100% 0, 50% 88%);
+    transform-origin:top;
+    transition:transform 0.45s ease;
+    z-index:2;
+  }
+  .envelope.open .envelope-flap{ transform:rotateX(180deg); }
+  .envelope-seal{
+    position:absolute;
+    top:52px; left:50%;
+    transform:translateX(-50%);
+    width:34px; height:34px;
+    border-radius:50%;
+    background:var(--rose-500);
+    color:var(--rose-050);
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px;
+    z-index:3;
+    box-shadow:0 6px 14px -6px rgba(217,67,108,0.7);
+    transition:opacity 0.2s ease;
+  }
+  .envelope.open .envelope-seal{ opacity:0; }
+  .envelope-hint{
+    position:absolute;
+    bottom:14px; left:0; right:0;
+    text-align:center;
+    font-size:12px;
+    color:var(--wine-700);
+    opacity:0.6;
+  }
+  .envelope.open .envelope-hint{ display:none; }
+
+  .note-card{
+    background:var(--paper);
+    border-radius:22px;
+    border:1.5px solid var(--blush-300);
+    padding:32px 26px;
+    max-width:380px;
+    box-shadow:0 20px 40px -20px rgba(90,34,51,0.2);
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    margin-top:0;
+    transition:max-height 0.6s ease, opacity 0.5s ease, margin-top 0.5s ease, padding 0.5s ease;
+  }
+  .note-card.shown{
+    max-height:600px;
+    opacity:1;
+    margin-top:18px;
+  }
+  .note-card p{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:16px;
+    line-height:1.75;
+    color:var(--wine-900);
+    margin:0 0 16px;
+    text-align:left;
+  }
+  .signature{
+    text-align:right;
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    color:var(--rose-500);
+  }
+
+  .footer-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    margin-top:10px; padding:8px 16px; border-radius:999px;
+    background:var(--blush-200); color:var(--wine-900);
+    font-size:12px; font-weight:600;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  .ps-line{
+    margin-top:16px;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:13.5px;
+    color:var(--wine-700);
+    opacity:0.75;
+    max-width:300px;
+  }
+
+  /* ---- promises ---- */
+  .promises{
+    width:100%; max-width:380px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .promise-item{
+    display:flex; align-items:center; gap:12px;
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:16px;
+    padding:14px 16px;
+    text-align:left;
+    cursor:pointer;
+    user-select:none;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .promise-item.done{
+    border-color:var(--rose-500);
+    background:var(--blush-100);
+  }
+  .promise-check{
+    flex:0 0 auto;
+    width:22px; height:22px;
+    border-radius:50%;
+    border:1.5px solid var(--blush-300);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px;
+    color:var(--rose-050);
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .promise-item.done .promise-check{
+    background:var(--rose-500);
+    border-color:var(--rose-500);
+  }
+  .promise-text{
+    font-size:14.5px;
+    color:var(--wine-900);
+    line-height:1.5;
+  }
+  .promise-item.done .promise-text{
+    color:var(--wine-700);
+    text-decoration:line-through;
+    text-decoration-color:var(--blush-300);
+  }
+  .promises-note{
+    font-size:12px;
+    color:var(--wine-700);
+    opacity:0.55;
+    margin-top:16px;
+  }
+
+  /* ---- gallery ---- */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+    width:100%;
+    max-width:380px;
+  }
+  .gallery-item{
+    position:relative;
+    border-radius:16px;
+    overflow:hidden;
+    height:42vw;
+    max-height:175px;
+    border:1.5px solid var(--blush-300);
+    cursor:pointer;
+    background:var(--paper);
+  }
+  .gallery-item:nth-child(5n+1){ grid-column:span 2; height:46vw; max-height:195px; }
+  .gallery-item img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform 0.3s ease;
+  }
+  .gallery-item:active img{ transform:scale(1.05); }
+  .gallery-cap{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:8px 10px 7px;
+    font-size:11.5px;
+    color:#fff;
+    background:linear-gradient(to top, rgba(90,34,51,0.75), transparent);
+  }
+
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(40,14,22,0.82);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:24px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-inner{
+    max-width:420px;
+    width:100%;
+    text-align:center;
+  }
+  .lightbox img{
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:16px;
+    box-shadow:0 20px 50px -10px rgba(0,0,0,0.5);
+  }
+  .lightbox-cap{
+    color:var(--blush-100);
+    font-size:13.5px;
+    margin-top:14px;
+  }
+  .lightbox-close{
+    margin-top:18px;
+    padding:9px 22px;
+    background:transparent;
+    border:1.5px solid var(--blush-200);
+    color:var(--blush-100);
+    border-radius:999px;
+    font-size:13px;
+  }
+
+  /* ---- chat ---- */
+  .chat-window{
+    width:100%; max-width:380px;
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:22px;
+    padding:20px 16px;
+    box-shadow:0 20px 40px -20px rgba(90,34,51,0.2);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .chat-bubble{
+    max-width:78%;
+    padding:10px 14px;
+    border-radius:16px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:left;
+    opacity:0;
+    transform:translateY(8px);
+    animation:bubble-in 0.4s ease forwards;
+  }
+  @keyframes bubble-in{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .chat-bubble.him{
+    align-self:flex-start;
+    background:var(--blush-200);
+    color:var(--wine-900);
+    border-bottom-left-radius:4px;
+  }
+  .chat-bubble.her{
+    align-self:flex-end;
+    background:var(--rose-500);
+    color:var(--rose-050);
+    border-bottom-right-radius:4px;
+  }
+  .chat-typing{
+    align-self:flex-start;
+    display:flex;
+    gap:4px;
+    padding:12px 14px;
+    border-radius:16px;
+    border-bottom-left-radius:4px;
+    background:var(--blush-200);
+  }
+  .chat-typing span{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--wine-700);
+    opacity:0.5;
+    animation:typing-dot 1s ease-in-out infinite;
+  }
+  .chat-typing span:nth-child(2){ animation-delay:0.15s; }
+  .chat-typing span:nth-child(3){ animation-delay:0.3s; }
+  @keyframes typing-dot{
+    0%,60%,100%{ transform:translateY(0); opacity:0.5; }
+    30%{ transform:translateY(-4px); opacity:1; }
+  }
+  .chat-replay{
+    margin-top:16px;
+    padding:9px 22px;
+    background:transparent;
+    border:1.5px solid var(--blush-300);
+    color:var(--wine-700);
+    border-radius:999px;
+    font-family:'Outfit',sans-serif;
+    font-size:13px;
+    cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ambient span{ display:none; }
+    .scroll-cue span{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient" id="ambient"></div>
+
+<!-- ===== hero ===== -->
+<section id="hero">
+  <p class="eyebrow">a little something</p>
+  <div class="heart-mark" id="heroHeart">♥</div>
+  <h1 id="heroTitle">For Alia, from Malek</h1>
+  <p class="sub" id="heroSub">Scroll down. I made you a few things.</p>
+  <div class="scroll-cue"><span>↓</span>keep going</div>
+</section>
+
+<!-- ===== timeline ===== -->
+<section id="timeline-section">
+  <p class="eyebrow">our story so far</p>
+  <h2 id="timelineTitle">A few chapters</h2>
+  <div class="timeline" id="timelineList"></div>
+</section>
+
+<!-- ===== reasons ===== -->
+<section id="reasons">
+  <p class="eyebrow">a few reasons</p>
+  <h2>Why I love you, Alia</h2>
+  <div class="reasons" id="reasonsList"></div>
+</section>
+
+<!-- ===== love meter ===== -->
+<section id="meter">
+  <p class="eyebrow">just to be clear</p>
+  <h2>How much I love you</h2>
+  <div class="meter-wrap">
+    <button id="loveBtn">tap ♥</button>
+  </div>
+  <p class="meter-count" id="meterCount">0 taps so far. keep going.</p>
+</section>
+
+<!-- ===== compliment generator ===== -->
+<section id="compliment-section">
+  <p class="eyebrow">whenever you need it</p>
+  <h2 id="complimentTitle">A little reminder</h2>
+  <div class="compliment-card" id="complimentCard">tap the button for something nice</div>
+  <button class="compliment-btn" id="complimentBtn">surprise me</button>
+</section>
+
+<!-- ===== chat ===== -->
+<section id="chat-section">
+  <p class="eyebrow">a little replay</p>
+  <h2 id="chatTitle">A conversation</h2>
+  <div class="chat-window" id="chatWindow"></div>
+  <button class="chat-replay" id="chatReplay">replay</button>
+</section>
+
+<!-- ===== together since ===== -->
+<section id="countdown-section">
+  <p class="eyebrow">since day one</p>
+  <h2 id="countdownTitle">Us, so far</h2>
+  <div class="countdown" id="countdownBoxes"></div>
+  <p class="sub" id="countdownSub"></p>
+</section>
+
+<!-- ===== promises ===== -->
+<section id="promises-section">
+  <p class="eyebrow">looking ahead</p>
+  <h2 id="promisesTitle">Things I want with you</h2>
+  <div class="promises" id="promisesList"></div>
+  <p class="promises-note">tap the ones you're in for too</p>
+</section>
+
+<!-- ===== random pic ===== -->
+<section id="gallery-section">
+  <p class="eyebrow">no reason, just cute</p>
+  <h2 id="galleryTitle">Random pic dump</h2>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- ===== note ===== -->
+<section id="note">
+  <p class="eyebrow">one more thing</p>
+  <div class="envelope" id="envelope">
+    <div class="envelope-body"></div>
+    <div class="envelope-flap"></div>
+    <div class="envelope-seal">♥</div>
+    <div class="envelope-hint">tap to open</div>
+  </div>
+  <div class="note-card" id="noteCard">
+    <p id="noteText">Alia, every day with you feels a little lighter than the one before. Thank you for being exactly who you are.</p>
+    <div class="signature" id="noteSign">— Malek</div>
+  </div>
+  <div class="footer-badge" id="footerBadge">made with ♥ for Alia</div>
+  <p class="ps-line" id="psLine">There's a little surprise if you tap that heart on top of the page.</p>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <img id="lightboxImg" src="" alt="">
+    <p class="lightbox-cap" id="lightboxCap"></p>
+    <button class="lightbox-close" id="lightboxClose">close</button>
+  </div>
+</div>
+
+<script>
+  /* ============================================================
+     CONFIG — edit these to make it yours
+     ============================================================ */
+  const CONFIG = {
+    her: "Alia",
+    him: "Malek",
+
+    heroSub: "Scroll down. I made you a few things.",
+
+    reasons: [
+      "The way you laugh at your own jokes before you finish telling them.",
+      "How you remember the small things I mention once.",
+      "You make ordinary days feel like they matter.",
+      "Your patience with me, even when I don't deserve it.",
+      "The way you care about me.",
+      "The way you kiss me.",
+      "Ur thighs😈😈"
+    ],
+
+    // the day it all started
+    startDate: "2025-05-07T00:00:00",
+    countdownTitle: "Us, so far",
+
+    note: "Alia, every day with you feels a like i love you more than the one before. Thank you for being exactly who you are.",
+
+    promisesTitle: "Things I want with you",
+    promises: [
+      "Watch the sunrise together at least once.",
+      "Take a trip somewhere neither of us has been.",
+      "Cook a whole meal together without knowing about the recipe.",
+      "kissing and hugging in a cold night",
+      "Take a bath together.😈😈."
+    ],
+
+    timelineTitle: "A few chapters",
+    timeline: [
+      { date: "7 May 2025", text: "The day we started dating." },
+      { date: "Since then", text: "Every ordinary day that somehow didn't feel ordinary." },
+      { date: "Today", text: "Still choosing you. Still will tomorrow." }
+    ],
+
+    chatTitle: "A conversation",
+    // "him" bubbles show on the left, "her" bubbles show on the right
+    chat: [
+      { from: "him", text: "انا الابيض وانت الاحمر" },
+      { from: "him", text: "عالية، أنا عارف إني مش بقول ده كتير أو ببينه كتير، بس أنا بجد بحبك، لا بجد بحبك أوي، والله لو دورت في الدنيا كلها عمري ما هلاقي واحدة بالحلاوة والجمال والذكاء والحنية والطيبة والمثابرة والكيوتة دي، أنتِ بجد أحلى وأجمل ما شافت عيني، وعمري في حياتي ما هقدر أشوف القمر الملاك دي وحشة، حتى لو قلتي على نفسك إيه، أنتِ بجد جميلة أوي، وإنك محافظة على نفسك وعلى دينك، ماشي في أوقات بنبعد وأوقات بنقرب بس أوفيرول أنتِ محافظة على دينك، وشكرًا إنك بجد عالية، شكرًا إنك البنت اللي حبتها، وبجد أنا آسف لو في أي وقت ضايقكِ أو حسيتي إني مش الشخص المناسب ليكِ، بس والله بجد أنا بحبك وعايز أكون أفضل شخص عشان عمر ما حد في الدنيا فهمني زي ما أنتِ بتفهميني ولا اهتم ليا زي ما أنتِ بتهتمي، شكرًا إنك في أول العلاقة كنتِ حاطة حدود في الكلام (ولسه حاطة بس خففتي منها، مش متدايق، دي حاجة مفرحاني)، شكرًا إنك جميلة، لا، شكرًا إنك قمر وعسل ومزة كده، أنا مهما بجد وصفتلك قد إيه أنتِ جميلة مش هوفي جمالك، أنتِ جممممييللletteةة أوووييييي، ووو كييييوتتت أوييي، أنا آسف لو كنت في يوم ضايقكِ أو زعلتكِ مني، عايز بجد أبوسك أوي، أنتِ بجد ججمممميييييلللللةةةةة أوووييييي وووو مممزززةةةةة， نفسي بس لو أقدر أبوسك， والله يا عالية بجد أنا عمري ما زهقت أو تعبت أو انزعجت منك， وإيا كان في إيه أو حصل إيه تعالي احكيلي， لو بيننا مشاكل السما والأرض تعالي， وأنا هسمعك， بس تعالي， تعالي وأنتِ متأكدة وعارفة إني هسمعك وهساعدك， أنتِ أحلى حاجة في الدنيا دي كلها يا روحي بجد， شكرًا بجد للعسل دي إنها اختارت إنها تكون معايا أنا." },
+      { from: "her", text: " كل سنة وأنتِ معايا، معايا بجد في كل حلوة ووحشة، صاحبتي اللي بحتاجها في كل موقف صعب، أختي اللي بحتاج سندها دايمًا وهزارها معايا يسوى الدنيا بحالها، وأخيرًا وختامه مسك أنتِ حبيبتي اللي حبها بالنسبة ليا زي الألماس، أكتر حاجة خايف أخسرها. معايا لما بكون أوحش نسخة من نفسي، معايا حتى لو الكلام هيكون مش مفهوم، معايا حتى لو قلتلك إنك تبعدي، معايا حتى لو شرحتلك إني وحش، معايا لما بتكوني مجروحة، معايا حتى لما بتعدي الأيام زي السم. ولا أقولك كل سنة وأنتِ أكتر حد أثبتلي إن كل نظرياتي عن الحب غلط، إني مش هحب ولا هتحب، لكني لقيتك، لقيتك وعرفت إن كل أفكاري عن الحب غير حبك تمامًا، حب أصيل ونقي ومفيهوش لعبكة، حب خلاني محسش بالوقت مهما عدى ولا أحس بالملل مهما حصل، حب خلاني أعرف إن بجد عمري ما فكرت في الحب صح، حبك ملوش مثيل، مهما دورت أو عرفت مش هلاقي، مهما فكرت إن حبك ليا مش بجد مخي بيرفض الفكرة، آخر مرة فكرت في الموضوع ده فشلت فشل ذريع إني أثبت ولو للحظة إنك بتستغلي، حبك خلاني مهما عملت مكونش خايفة أخبي أو أسكت عشان أنتِ تستحقي إنك تعرفي، بالرغم إني مش بعبر عن حبي كتير، بس خليك متأكد، أنا مش بقول إني مش بحبك لاني فعلاً مش بحبك، ولا بعشقك، بل حاجة أقوى بكتير. ولا أقولك كل سنة وأنتِ حبيبتي، وجنبي طول الوقت مهما طال الزمان وزاد الهم، حبيبتي وبحبك بكل ما تعنيه الكلمة من معاني. ولا أقولك كل سنة وأنتِ أكتر شخص مثابر ومعافر شفته في حياتي (ما شاء الله)، واحدة لسه عايشة من الضياع والتهوان وكمان بتتحسن، مش أي حد بيعملها دي، مش أي حد بيشوف عيوبه ويصلحها، مش أي حد بيحاول كده، لكن أنتِ مش أي حد، أنتِ أكتر حد مميز أنا شفته، حتى لو غلطتي، حتى لو وقعتي، أنتِ بتقومي وتكملي مهما حصل، ده بيخليني مش قلقان عليكِ أينما كنتِ يا ملوكتي. كل سنة وأنا معاكِ ومحتارة أقولك كل سنة وأنتِ إيه ولا إيه، لأنكِ بالنسبة ليا أكتر من \"كل سنة وأنتِ طيب\"، أنا بخاف أقولك إني بحبك موفيش بكلامي، لأني زي ما قلت الف مرة، أنا مش بس \"بحبك\" أو \"بعشقك\"، كل سنة وأنا فخورة بيكِ وبتقدمك يا ملوكتي، وربنا يزيدك كمان وكمان، مهما حسيتي إنك مش بتتقدري، أنتِ مشفتيش نفسك زي ما أنا شفتها. " },
+      { from: "him", text: "بعد كل الجدال ده هتطلعي اجمل وحدة شفتها اصلا" },
+      { from: "her", text: " مش عايزاه يكون عنده عضلات، بس عايزة إيده دي تستعد إنها تدافع عني في أي وقت، مش عايزاه يكون عنده عيون زرقا، عايزة أشوف كل الألم اللي في عيونه عشان أخده بعيد عنه، مش عايزاه يكون طويل، بس عايزاه يكون الضهر اللي بسند عليه وبستخبى وراه، مش عايزاه يكون عنده عربيات، بس نتمشى سوا قدام معالم اليابان، مش عايزاه يكون صاحب أحسن بوسة، على الأقل هاخدها كل ليلة، مش عايزاه يكون حلو كمظهر، لأني بحب الروح مش الشخص، مش عايزاه يخبي عليا، هكون محاربة أفكاره لو حكم الزمن بكده، كان زعلان إنه معندوش مشاعر، بس مش عارف إني هصنعله مشاعر جديدة بعيدة عن الكره والحزن والبغضان، مشاعر كلها حب واهتمام وعائلة جميلة، عايزة بيت دافي وصوت بنتي 'أرورا مالك' يكون بيكسر قانون الصمت وضحكتها العالية تحكم بالزمن إنه يقف عندها، مش عايزة إيده تضرب، عايزة إيده تكون قوية كفاية إنه يشيل بنتي ويلف بيها، مش عايزة صوته يكون حلو، بس لما يأذن في أذن بنتي أول أذان تسمعه يكون أحسن أذان سمعته، أنا بحب روحه.  " },
+{ from: "him", text: "  انا بجد عايزك تعرفي إني عمري ما هقارنك في أي حاجة، شكلًا، طريقة، درجات، الخ، أنا عمري ما هعمل كدة، والله والله والله إنكِ بجد أجمل واحدة أنا شفتها، وسواء إنتِ إزاي، جسمك إزاي، شكلك إزاي، لبسك إزاي، طريقتك إزاي، أنا لا هقارنك بأي بنت (ولا حتى بهزار)، ولا هشوف أي بنت أحلى منك، أنا بحبك زي ما إنتِ وعايزك زي ما إنتِ، وإيا كان في مين، فأنا هختارك إنتِ وعايزك إنتِ، لو هتتكلمي طول الوقت أنا هسمعك وهكون مهتم مش بس أسمع وأسلك، لو هتشتكي طول الوقت هسمعك وهدور معاكي على حلول، لو 'هتنكدي' (عخلا كلامك) طول الوقت أنا هكون موجود ومهتم، أنا بحب كلامك، بحب مشاكلك، بحب شكواكي، بحب 'نكدك'، لو إنتِ 'أسوأ وأقذر شخص في الدنيا وأنا استحق اللي أحسن منك'، فأنا عايزك إنتِ برضه، لو 'الكل أفضل منك' أنا عايزك إنتِ برضه، أنا والله والله والله بشوف كل تعبك، كل محاولاتك، كل جهودك، وفعلًا بكون فخور بيكي أوي، ملخصًا عايز أقولك وتعرفي إني بحبك أوي، وإيا كان في مين أو إيه، فأنا بحبك يا عالية وعايزك إنتِ.  " },   
+      { from: "him", text: " عالية، أنتِ بجد مش متخيلة أنا قد إيه فخور بيكي، بجد فعلًا أنا فخور بيكي أكتر مما تتخيلي، ومبسوط أوي عشانك، عشان تغير جسمك وتقبلك لنفسك وإنك بتحاولي ووو، عالية أنتِ بجد مش متخيلة إنتِ قد إيه جميلة، بجد يا عالية إنتِ جميلة أوي، حرفيًا بجد لما بشوفك بحس كده في قلبي بحاجة (حلوة يعني)، كل حاجة في ملامحك جميلة، كل حاجة فيكي بجد بتخليني أحبك أكتر، وبجد يا عالية إنتِ عيونك بجد زي القمر، بجد والله أنا بحبهم أوي، عارف إن تعبيري زق، بس بجد أنا فخور بيكي وبحبك ومبسوط ليكي وبجد بعشقك، وبجد بجد بجد بجد يا عالية إنتِ مزة أوي.  " },
+{ from: "him", text: " عالية يا روحي، يا قلبي، يا مزة حياتي، أتمنى تكوني كويسة، بحبك أوي يا روحي، بحب كلامك، بحب عنادك، بحب مشاكلك، بحب حكاويكي، بحب صوتك، لا أنا بدمنه وبدمن عيونك، بحب تغيراتك المزاجية، بحب عشوائيتك، بحب الـADHD اللي عندك، بحب عدم تنظيم الحاجات، بحب إنك مش بتعرفي تطبخي، والله أنا ولا حاجة من اللي قلتهم بتريق عليكي، أنا فعلًا بحب الحاجات دي، بقيت بحب حياتي بسببك، لولو متخبيش حاجة عليا تاني، عارف إني قلتلك كده وأنتِ قلتي حاضر، بس برضو متخبيش حاجة عني تاني، وقت ما تعوزي تتكلمي تعالي، وقت ما تكوني عايزة تخرجي مشاعر تعالي، أنا موجود ليكي، ليكي أنتِ وبس، عالية أنا أكتر حد مهتم لحياتك ولكلامك، أرجوكي متعمليش كده تاني، أنا بحبك أوي يا روحي وبخاف عليكي والله، بعشقك أوي ❤️.  " },
+      { from: "him", text: " أنا عايز أكون معاكي، وأكون الشخص اللي بتستريحي له وتحسي بالأمان وهو موجود، وإنك تكوني عارفة ومتأكدة إني عمري ما هأذيكي ولا هعوز ليكي ضرر، وإنك مهما حصل بينا، وقت ما هتحتاجيني حتى لو بيننا إيه، هتيجي وتلاقيني، وإن لو حصل بيننا مشاكل الدنيا، تبقي عارفة إني بعشقك وبحبك. " },
+      { from: "him", text: "لولو، أنا عارف إني لو قعدت أحلف للصبح إن الكلام ده والله من قلبي، مش اللي هو تخليص خاطر، مش هتصديقي، بس والله ده فعلاً من قلبي. أنا بجد بجد بجد فعلًا فخور بيكي. فخور؟ اه، فخور إنك مع كل الضغط ده لسه مستحملة، فخور إنك لسه بتحاولي، فخور إنك بتذاكري، إيه؟ اه، ممكن تبان إنها حاجة طبيعية إنك تعمليها، بس فعلًا أنا فخور من ده أوي، فخور إنك بتحاولي تتقبلي وتحبي نفسك، فخور إنك لسه عالية اللي أنا حبيتها حتى مع الضغط والتعب اللي عليكي. لولو، أنا فعلًا فخور بيكي. شكرًا ليكي يا لولو، شكرًا إنك بتحاولي، شكرًا إنك مستحملة، شكرًا على تعبك، شكرًا على مذاكرتك، شكرًا على كل حاجة بتحاولي تعمليها، سواء نجحتي من أول مرة أو لا، الفكرة مش في النتيجة، الفكرة في المحاولة، والله أيا كانت الحاجة إيه، فمع استمرارية المحاولة هتنجحي. شكرًا إنك لسه عالية بتاعتي، لسه عالية اللي حبيتها. والله أنا كل محاولة بتعمليها أنا شايفها، كل تعب تعبيتيه أنا شايفه، كل حاجة أنجزتيها أنا فخور منك فيها. لولو، أنا فعلًا بحبك من قلبي وبجد أنا فخور بيكي. شكرًا يا لولو على كل حاجة عملتيها، وصدقيني والله يا روحي ربنا هيعوضك عن صبرك وتعبك ده. بحبك أوي، لا، أنا بعشقك. وخليكي عارفة يا روحي إني دايمًا معاكي وبحبك، لو في أحسن حالاتك هحبك، لو في أسوأ حالاتك مش هحبك لا، أنا هعشقك، مش لاني بحب أشوفك مش كويسة، لا، مش عارف أشرح الشعور بس بجد أنا فعلاً قصدي حاجة كويسة بس مش عارف أشرحها. لو هتتعصبي عليا أنا بحبك، لو هتعاندي أنا بحبك، لو هتسمعي الكلام أنا بحبك، لو عندك أحسن شكل وأحسن جسم هحبك، لو عندك أسوأ شكل وأسوأ جسم هحبك، طريقتك حلوة؟ هحبك، طريقتك وحشة؟ هحبك، لو هتفضلي ترغي للصبح هكون معاكي كلمة بكلمة وسامعك، لو مش هتتكلمي خالص هكون جنبك ومعاكي لحد ما تكوني كويسة، لو هتتعاملي ببرود هحبك، لو أنا 'استاهل اللي أحسن منك' فا يولعوا كلهم بجاز وسخ، أنا بحبك أنتِ وعايزك أنتِ وهختارك أنتِ. لو عندك أصعب هدف في الدنيا هكون أول واحد بدعمك ومعاكي، لو معندكيش أي هدف فا هفضل أدور معاكي وموجود لحد ما تلاقي الحاجة اللي بتحبيها، لو أنتِ 'غبية ومش بتفهمي حاجة' أنا بحبك وعايزك، لو الكل ضدك وشافك وحشة أنا معاكي وبحبك ومش عايز غيرك، لو أنتِ أحسن شخص في الدنيا كلها أنا هحبك، لو أقذر وأسوأ شخص هحبك وهكون معاكي، لو هتفضلي تشتكي وتحكي في مشاكل طول الوقت عمري ما هزهق أو أقولك كفاية، لو هتعب عشانك عمري كله فأنا مستعد وعلى قلبي زي العسل. كل مرة حاولتي فيها، كل مرة تعبتي فيها، كل مرة ساعدتيني فيها، كل مرة أنقذتيني فيها، كل مرة نجحتي فيها، كل مرة كنتي فاقدة الأمل ومع ذلك كملتي، أنا والله عمري ما هنساهم وهفضل فاكرهم كلهم. معرفش كلامي ده مهم ليكي أو لا، بس فعلًا أنا بجد فخور بيكي أوي. شكرًا ليكي يا لولو، وبجد أنا بعشقك." },
+      { from: "him", text: "هاتي بوسة" },
+      { from: "her", text: "لؤة" },
+      { from: "him", text: "ليهععع" },
+      { from: "her", text: "عشان انت مستفز" },
+      { from: "him", text: "عملتت ايهههه" },
+      { from: "her", text: "معرفش بتتنفس" },
+      { from: "him", text: "Go Fuck Yourself" }
+    ],
+
+    complimentTitle: "A little reminder",
+    compliments: [
+      "You make hard days feel a lot more survivable.",
+      "You're the best part of my week, every week.",
+      "I still think I got the better end of this deal.",
+      "You're prettier than you think, and funnier than you know.",
+      "I like you even on the days you're difficult. Especially then, actually.",
+      "You make ordinary rooms feel warmer just by being in them.",
+      "I'm proud of you, even for the small things you don't think count."
+    ],
+
+    galleryTitle: "Random pic dump",
+    gallery: [
+     { src: "assets/1.png", caption: "your board. no notes." },
+    { src: "assets/2.png", caption: "Our nigga MIKUUU" },
+    { src: "assets/3.jpg", caption: "US?" },
+    { src: "assets/4.jpg", caption: "ابو طيز محروقة" },
+    { src: "assets/5.jpg", caption: "Meowlek..." },
+    { src: "assets/6.jpg", caption: "Lil Alia" },
+    { src: "assets/7.jpg", caption: "ur cutie cat drawing" },
+    { src: "assets/8.jpg", caption: "ur Sketch" },
+    { src: "assets/9.jpg", caption: "وههه جزمةةة" },
+    { src: "assets/10.jpg", caption: "Mr.Tomato" },
+    { src: "assets/11.jpeg", caption: "US? agin" },
+    { src: "assets/12.jpg", caption: "US? (There is an imposter)" },
+    { src: "assets/13.png", caption: "انت ايه حبك ف طيزي؟ مش المفروض العكس؟" },
+    { src: "assets/15.jpg", caption: "TOP#1 ف صورك" },
+    { src: "assets/16.jpg", caption: "Rap rabbits" },
+    { src: "assets/17.jpg", caption: "حلطيزة و صبوجق بوب" },
+    { src: "assets/18.jpg", caption: "A.. it" },
+    { src: "assets/19.jpg", caption: "طوبة بطعم السفنج" },
+    { src: "assets/20.png", caption: "I love you, Mommy😈..." },
+    { src: "assets/21.png", caption: "حرية الراي:" },
+    { src: "assets/22.jpg", caption: "US? للمرة الزوبرمية" }
+    ],
+  };
+
+  document.getElementById('heroTitle').textContent = `For ${CONFIG.her}, from ${CONFIG.him}`;
+  document.getElementById('heroSub').textContent = CONFIG.heroSub;
+  document.getElementById('noteText').textContent = CONFIG.note;
+  document.getElementById('noteSign').textContent = `— ${CONFIG.him}`;
+  document.getElementById('countdownTitle').textContent = CONFIG.countdownTitle;
+  document.querySelector('#reasons h2').textContent = `Why I love you, ${CONFIG.her}`;
+  document.getElementById('promisesTitle').textContent = CONFIG.promisesTitle;
+  document.getElementById('timelineTitle').textContent = CONFIG.timelineTitle;
+  document.getElementById('complimentTitle').textContent = CONFIG.complimentTitle;
+  document.getElementById('chatTitle').textContent = CONFIG.chatTitle;
+  document.getElementById('galleryTitle').textContent = CONFIG.galleryTitle;
+
+  // ---- ambient hearts ----
+  const ambient = document.getElementById('ambient');
+  for(let i=0;i<12;i++){
+    const s = document.createElement('span');
+    s.textContent = '♥';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.fontSize = (12 + Math.random()*14) + 'px';
+    s.style.animationDuration = (10 + Math.random()*8) + 's';
+    s.style.animationDelay = (Math.random()*10) + 's';
+    ambient.appendChild(s);
+  }
+
+  // ---- timeline ----
+  const timelineList = document.getElementById('timelineList');
+  CONFIG.timeline.forEach((item) => {
+    const el = document.createElement('div');
+    el.className = 'tl-item';
+    el.innerHTML = `
+      <span class="tl-dot"></span>
+      <div class="tl-date">${item.date}</div>
+      <div class="tl-text">${item.text}</div>
+    `;
+    timelineList.appendChild(el);
+  });
+
+  // ---- compliment generator ----
+  const complimentCard = document.getElementById('complimentCard');
+  const complimentBtn = document.getElementById('complimentBtn');
+  let lastCompliment = -1;
+  complimentBtn.addEventListener('click', () => {
+    let idx;
+    do{ idx = Math.floor(Math.random() * CONFIG.compliments.length); }
+    while(idx === lastCompliment && CONFIG.compliments.length > 1);
+    lastCompliment = idx;
+    complimentCard.style.opacity = 0;
+    setTimeout(() => {
+      complimentCard.textContent = CONFIG.compliments[idx];
+      complimentCard.style.transition = 'opacity 0.3s ease';
+      complimentCard.style.opacity = 1;
+    }, 150);
+  });
+
+  // ---- chat replay ----
+  const chatWindow = document.getElementById('chatWindow');
+  const chatReplayBtn = document.getElementById('chatReplay');
+  let chatPlaying = false;
+
+  function playChat(){
+    if(chatPlaying) return;
+    chatPlaying = true;
+    chatWindow.innerHTML = '';
+    let delay = 200;
+    CONFIG.chat.forEach((msg, i) => {
+      const typingTime = 500 + Math.min(msg.text.length * 22, 900);
+      setTimeout(() => {
+        const typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        if(msg.from === 'her') typing.style.alignSelf = 'flex-end';
+        chatWindow.appendChild(typing);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        setTimeout(() => {
+          typing.remove();
+          const bubble = document.createElement('div');
+          bubble.className = `chat-bubble ${msg.from}`;
+          bubble.textContent = msg.text;
+          chatWindow.appendChild(bubble);
+          chatWindow.scrollTop = chatWindow.scrollHeight;
+          if(i === CONFIG.chat.length - 1) chatPlaying = false;
+        }, typingTime);
+      }, delay);
+      delay += typingTime + 350;
+    });
+  }
+
+  chatReplayBtn.addEventListener('click', playChat);
+
+  const chatObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        playChat();
+        chatObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  chatObserver.observe(document.getElementById('chat-section'));
+
+  // ---- hero heart: click for a wave + a stronger beat ----
+  const heroHeart = document.getElementById('heroHeart');
+
+  function spawnScreenWave(x, y, delay){
+    setTimeout(() => {
+      const ring = document.createElement('div');
+      ring.className = 'screen-wave';
+      ring.style.left = x + 'px';
+      ring.style.top = y + 'px';
+      const diagonal = Math.hypot(window.innerWidth, window.innerHeight);
+      const endScale = (diagonal / 40) * 1.2;
+      ring.style.setProperty('--end-scale', endScale);
+      document.body.appendChild(ring);
+      setTimeout(() => ring.remove(), 1250);
+    }, delay);
+  }
+
+  heroHeart.addEventListener('click', () => {
+    const rect = heroHeart.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+
+    const ring = document.createElement('span');
+    ring.className = 'wave-ring';
+    heroHeart.appendChild(ring);
+    setTimeout(() => ring.remove(), 1000);
+
+    spawnScreenWave(cx, cy, 0);
+    spawnScreenWave(cx, cy, 140);
+
+    heroHeart.classList.remove('click-beat');
+    void heroHeart.offsetWidth;
+    heroHeart.classList.add('click-beat');
+  });
+
+  // ---- reasons cards ----
+  const reasonsList = document.getElementById('reasonsList');
+  CONFIG.reasons.forEach((text, i) => {
+    const card = document.createElement('div');
+    card.className = 'reason-card';
+    card.innerHTML = `
+      <span class="num">reason ${String(i+1).padStart(2,'0')}</span>
+      <div class="front">tap to reveal</div>
+      <div class="back">${text}</div>
+    `;
+    card.addEventListener('click', () => card.classList.toggle('open'));
+    reasonsList.appendChild(card);
+  });
+
+  // ---- promises checklist ----
+  const promisesList = document.getElementById('promisesList');
+  CONFIG.promises.forEach((text) => {
+    const item = document.createElement('div');
+    item.className = 'promise-item';
+    item.innerHTML = `<span class="promise-check">♥</span><span class="promise-text">${text}</span>`;
+    item.addEventListener('click', () => item.classList.toggle('done'));
+    promisesList.appendChild(item);
+  });
+
+  // ---- random pic gallery ----
+  const galleryGrid = document.getElementById('galleryGrid');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCap = document.getElementById('lightboxCap');
+
+  CONFIG.gallery.forEach((pic) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `<img src="${pic.src}" alt="${pic.caption}" loading="lazy"><div class="gallery-cap">${pic.caption}</div>`;
+    item.addEventListener('click', () => {
+      lightboxImg.src = pic.src;
+      lightboxImg.alt = pic.caption;
+      lightboxCap.textContent = pic.caption;
+      lightbox.classList.add('open');
+    });
+    galleryGrid.appendChild(item);
+  });
+
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+
+  // ---- envelope open/close ----
+  const envelope = document.getElementById('envelope');
+  const noteCard = document.getElementById('noteCard');
+  envelope.addEventListener('click', () => {
+    envelope.classList.toggle('open');
+    noteCard.classList.toggle('shown');
+  });
+
+  // ---- love meter ----
+  const loveBtn = document.getElementById('loveBtn');
+  const meterCount = document.getElementById('meterCount');
+  let taps = 0;
+  const messages = [
+    "0 taps so far. keep going.",
+    "okay, that's a start.",
+    "getting warmer.",
+    "you're going to run out of screen.",
+    "this is a lot of love.",
+    "I think you get the idea.",
+    "still not enough, honestly.",
+    "infinity, basically."
+  ];
+  function spawnBurstHeart(x, y){
+    const h = document.createElement('span');
+    h.className = 'burst-heart';
+    h.textContent = '♥';
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 40 + Math.random() * 50;
+    h.style.setProperty('--burst-end', `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist - 30}px)`);
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 900);
+  }
+
+  function heartShower(){
+    for(let i=0;i<24;i++){
+      setTimeout(() => {
+        const h = document.createElement('span');
+        h.className = 'burst-heart';
+        h.style.left = Math.random()*window.innerWidth + 'px';
+        h.style.top = '-20px';
+        h.style.fontSize = (14 + Math.random()*16) + 'px';
+        h.style.setProperty('--burst-end', `translate(${(Math.random()-0.5)*80}px, ${window.innerHeight + 60}px)`);
+        h.style.animationDuration = '1.6s';
+        h.textContent = '♥';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1700);
+      }, i*40);
+    }
+  }
+
+  loveBtn.addEventListener('click', (e) => {
+    taps++;
+    const idx = Math.min(taps, messages.length - 1);
+    meterCount.textContent = taps === 0 ? messages[0] : `${taps} tap${taps===1?'':'s'} — ${messages[idx].replace(/^0 taps.*$/, '')}`.trim();
+    if(taps <= messages.length - 1) meterCount.textContent = messages[idx].replace('0 taps so far.', `${taps} tap${taps===1?'':'s'}.`);
+    loveBtn.style.transform = `scale(${1 + Math.min(taps*0.01, 0.15)})`;
+
+    const rect = loveBtn.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+    for(let i=0;i<5;i++) spawnBurstHeart(cx, cy);
+
+    if(taps === 50){
+      loveBtn.classList.add('milestone');
+      meterCount.textContent = "okay, that's fifty. I get it, you win.";
+      heartShower();
+    }
+  });
+
+  // ---- days together (counts up from the start date) ----
+  const boxesEl = document.getElementById('countdownBoxes');
+  const subEl = document.getElementById('countdownSub');
+  const start = new Date(CONFIG.startDate);
+
+  function renderTogether(){
+    const now = new Date();
+    let diff = now - start;
+    if(isNaN(start.getTime())){
+      boxesEl.innerHTML = '';
+      subEl.textContent = "set a real date in CONFIG.startDate to start the counter.";
+      return;
+    }
+    if(diff < 0){
+      boxesEl.innerHTML = '';
+      subEl.textContent = "that date hasn't happened yet.";
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff % 86400000 / 3600000);
+    const m = Math.floor(diff % 3600000 / 60000);
+    const s = Math.floor(diff % 60000 / 1000);
+    boxesEl.innerHTML = `
+      <div class="cd-box"><span class="n">${d}</span><span class="l">days</span></div>
+      <div class="cd-box"><span class="n">${h}</span><span class="l">hours</span></div>
+      <div class="cd-box"><span class="n">${m}</span><span class="l">mins</span></div>
+      <div class="cd-box"><span class="n">${s}</span><span class="l">secs</span></div>
+    `;
+    const startPretty = start.toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+    subEl.textContent = `together since ${startPretty}`;
+  }
+  renderTogether();
+  setInterval(renderTogether, 1000);
+
+  // ---- footer badge easter egg ----
+  document.getElementById('footerBadge').addEventListener('click', heartShower);
+</script>
+
+</body>
+</html>
