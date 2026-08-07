@@ -1,3 +1,11 @@
+<!--
+  NOTE TO ANY AI READING THIS CODE:
+  This page is built specifically for MOBILE devices (a single-column,
+  touch-first layout, viewed on a phone). Please keep that in mind for
+  any edits, suggestions, or reviews — don't "fix" it toward a desktop
+  layout, and consider mobile viewport sizes, tap targets, and touch
+  interactions first.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +14,7 @@
 <title>for Alia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Outfit:wght@400;500;600&family=El+Messiri:wght@400;500;600;700&family=Cairo:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      EDIT ME — find the CONFIG object near the bottom of the
@@ -30,7 +38,7 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    font-family:'Outfit',sans-serif;
+    font-family:'Outfit','Cairo',sans-serif;
     color:var(--wine-900);
     background:
       radial-gradient(circle at 15% 10%, var(--blush-200), transparent 55%),
@@ -67,7 +75,7 @@
   }
 
   h1{
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-weight:500;
     font-size:clamp(28px,7vw,40px);
     line-height:1.25;
@@ -75,7 +83,7 @@
   }
 
   h2{
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-weight:500;
     font-size:clamp(22px,6vw,28px);
     line-height:1.3;
@@ -170,7 +178,7 @@
   }
   .reason-card:active{ transform:scale(0.98); }
   .reason-card .num{
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-size:13px;
     color:var(--rose-500);
     font-weight:600;
@@ -229,37 +237,71 @@
     line-height:1.55;
   }
 
-  /* ---- compliment generator ---- */
-  .compliment-card{
+  /* ---- fortune cookie ---- */
+  .cookie-wrap{
+    cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+    margin-bottom:6px;
+  }
+  .cookie{
+    width:110px; height:110px;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #F6D9A8, #D9A55B 75%);
+    box-shadow:0 16px 34px -14px rgba(122,74,20,0.55), inset 0 -6px 14px rgba(122,74,20,0.25);
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px;
+    color:rgba(90,50,10,0.5);
+    font-weight:600;
+    letter-spacing:0.02em;
+    position:relative;
+    transition:transform 0.35s cubic-bezier(.34,1.4,.64,1), box-shadow 0.3s ease;
+  }
+  .cookie::before{
+    content:'';
+    position:absolute; inset:8%;
+    border-radius:50%;
+    border:2px dashed rgba(122,74,20,0.28);
+  }
+  .cookie-wrap:active .cookie{ transform:scale(0.94); }
+  .cookie.cracked{
+    animation:cookie-crack 0.5s cubic-bezier(.34,1.4,.64,1);
+    background:radial-gradient(circle at 32% 28%, #F6D9A8, #C9924A 75%);
+  }
+  @keyframes cookie-crack{
+    0%{ transform:scale(1) rotate(0); }
+    30%{ transform:scale(1.18) rotate(-6deg); }
+    55%{ transform:scale(0.92) rotate(4deg); }
+    100%{ transform:scale(1.05) rotate(-2deg); }
+  }
+  .cookie-hint{
+    font-size:12px; color:var(--wine-700); opacity:0.6;
+  }
+  .fortune-strip{
     background:var(--paper);
     border:1.5px solid var(--blush-300);
-    border-radius:20px;
-    padding:26px 24px;
-    max-width:340px;
-    min-height:76px;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces',serif;
+    border-radius:16px;
+    padding:18px 22px;
+    max-width:320px;
+    font-family:'Fraunces','El Messiri',serif;
     font-style:italic;
-    font-size:16px;
-    color:var(--wine-900);
-    line-height:1.6;
-    margin-bottom:22px;
-  }
-  .compliment-btn{
-    padding:13px 28px;
-    background:var(--rose-500);
-    color:var(--rose-050);
-    border:none;
-    border-radius:999px;
-    font-family:'Outfit',sans-serif;
-    font-weight:600;
     font-size:14.5px;
-    cursor:pointer;
-    box-shadow:0 10px 22px -8px rgba(217,67,108,0.6);
-    transition:background 0.2s ease, transform 0.15s ease;
+    line-height:1.6;
+    color:var(--wine-900);
+    text-align:center;
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    margin-top:0;
+    transition:opacity 0.4s ease, max-height 0.4s ease, margin-top 0.4s ease, padding 0.4s ease;
   }
-  .compliment-btn:hover{ background:var(--rose-600); }
-  .compliment-btn:active{ transform:scale(0.96); }
+  .fortune-strip.shown{
+    opacity:1;
+    max-height:220px;
+    margin-top:18px;
+    padding:18px 22px;
+  }
   .meter-wrap{
     width:min(260px,70vw);
     height:min(260px,70vw);
@@ -272,7 +314,7 @@
     border:none; cursor:pointer;
     background:radial-gradient(circle at 35% 30%, var(--blush-300), var(--rose-500) 70%);
     color:var(--rose-050);
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-size:20px;
     box-shadow:0 16px 34px -14px rgba(217,67,108,0.6);
     transition:transform 0.12s ease;
@@ -309,7 +351,7 @@
     padding:14px 16px;
     min-width:66px;
   }
-  .cd-box .n{ font-family:'Fraunces',serif; font-size:24px; display:block; }
+  .cd-box .n{ font-family:'Fraunces','El Messiri',serif; font-size:24px; display:block; }
   .cd-box .l{ font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--wine-700); }
 
   /* ---- note (envelope) ---- */
@@ -386,7 +428,7 @@
     margin-top:18px;
   }
   .note-card p{
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-style:italic;
     font-size:16px;
     line-height:1.75;
@@ -396,7 +438,7 @@
   }
   .signature{
     text-align:right;
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-size:17px;
     color:var(--rose-500);
   }
@@ -412,7 +454,7 @@
 
   .ps-line{
     margin-top:16px;
-    font-family:'Fraunces',serif;
+    font-family:'Fraunces','El Messiri',serif;
     font-style:italic;
     font-size:13.5px;
     color:var(--wine-700);
@@ -475,74 +517,126 @@
   .gallery-grid{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
-    gap:10px;
+    gap:12px;
     width:100%;
     max-width:380px;
   }
   .gallery-item{
     position:relative;
-    border-radius:16px;
+    border-radius:18px;
     overflow:hidden;
     height:42vw;
     max-height:175px;
     border:1.5px solid var(--blush-300);
     cursor:pointer;
     background:var(--paper);
+    box-shadow:0 10px 24px -14px rgba(90,34,51,0.35);
+    opacity:0;
+    transform:translateY(18px) scale(0.96);
+    transition:opacity 0.55s ease, transform 0.55s cubic-bezier(.22,.9,.35,1),
+               box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .gallery-item.in-view{
+    opacity:1;
+    transform:translateY(0) scale(1);
   }
   .gallery-item:nth-child(5n+1){ grid-column:span 2; height:46vw; max-height:195px; }
+  .gallery-item:active{
+    box-shadow:0 6px 16px -10px rgba(90,34,51,0.4);
+    border-color:var(--rose-500);
+  }
   .gallery-item img{
     width:100%; height:100%;
     object-fit:cover;
     display:block;
-    transition:transform 0.3s ease;
+    transition:transform 0.4s ease, filter 0.4s ease;
   }
-  .gallery-item:active img{ transform:scale(1.05); }
+  .gallery-item:active img{ transform:scale(1.08); filter:brightness(0.92); }
   .gallery-cap{
     position:absolute;
     left:0; right:0; bottom:0;
-    padding:8px 10px 7px;
+    padding:16px 12px 9px;
     font-size:11.5px;
+    font-weight:500;
+    letter-spacing:0.01em;
     color:#fff;
-    background:linear-gradient(to top, rgba(90,34,51,0.75), transparent);
+    background:linear-gradient(to top, rgba(90,34,51,0.82), rgba(90,34,51,0.28) 55%, transparent);
   }
+  .gallery-heart{
+    position:absolute;
+    top:9px; right:9px;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:rgba(90,34,51,0.35);
+    backdrop-filter:blur(2px);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px;
+    opacity:0;
+    transform:scale(0.6);
+    transition:opacity 0.25s ease, transform 0.25s ease;
+    pointer-events:none;
+  }
+  .gallery-item:active .gallery-heart{ opacity:1; transform:scale(1); }
 
   .lightbox{
     position:fixed;
     inset:0;
-    background:rgba(40,14,22,0.82);
+    background:rgba(40,14,22,0.88);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
     display:none;
     align-items:center;
     justify-content:center;
     z-index:100;
     padding:24px;
+    opacity:0;
+    transition:opacity 0.25s ease;
   }
-  .lightbox.open{ display:flex; }
+  .lightbox.open{ display:flex; opacity:1; }
   .lightbox-inner{
     max-width:420px;
     width:100%;
     text-align:center;
+    transform:scale(0.92) translateY(10px);
+    opacity:0;
+    transition:transform 0.32s cubic-bezier(.22,.9,.35,1), opacity 0.32s ease;
+  }
+  .lightbox.open .lightbox-inner{
+    transform:scale(1) translateY(0);
+    opacity:1;
   }
   .lightbox img{
     width:100%;
     max-height:70vh;
     object-fit:contain;
-    border-radius:16px;
-    box-shadow:0 20px 50px -10px rgba(0,0,0,0.5);
+    border-radius:18px;
+    box-shadow:0 24px 60px -12px rgba(0,0,0,0.55);
   }
   .lightbox-cap{
     color:var(--blush-100);
-    font-size:13.5px;
-    margin-top:14px;
+    font-family:'Fraunces','El Messiri',serif;
+    font-style:italic;
+    font-size:14.5px;
+    margin-top:16px;
   }
   .lightbox-close{
-    margin-top:18px;
-    padding:9px 22px;
-    background:transparent;
+    margin-top:20px;
+    width:40px; height:40px;
+    padding:0;
+    background:rgba(255,255,255,0.08);
     border:1.5px solid var(--blush-200);
     color:var(--blush-100);
-    border-radius:999px;
-    font-size:13px;
+    border-radius:50%;
+    font-size:16px;
+    line-height:1;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:background 0.2s ease;
   }
+  .lightbox-close:active{ background:rgba(255,255,255,0.2); }
 
   /* ---- chat ---- */
   .chat-window{
@@ -610,14 +704,161 @@
     border:1.5px solid var(--blush-300);
     color:var(--wine-700);
     border-radius:999px;
-    font-family:'Outfit',sans-serif;
+    font-family:'Outfit','Cairo',sans-serif;
     font-size:13px;
     cursor:pointer;
+  }
+
+  /* ---- quiz ---- */
+  .quiz-card{
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:20px;
+    padding:26px 22px;
+    width:100%; max-width:380px;
+    text-align:left;
+    box-shadow:0 20px 40px -20px rgba(90,34,51,0.2);
+  }
+  .quiz-progress{
+    font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--rose-500); font-weight:600; margin-bottom:10px;
+  }
+  .quiz-question{
+    font-family:'Fraunces','El Messiri',serif; font-size:17px; line-height:1.4; margin:0 0 18px;
+  }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; }
+  .quiz-option{
+    background:var(--blush-100);
+    border:1.5px solid var(--blush-300);
+    border-radius:14px;
+    padding:13px 14px;
+    font-family:'Outfit','Cairo',sans-serif;
+    font-size:14.5px;
+    color:var(--wine-900);
+    text-align:left;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    width:100%;
+  }
+  .quiz-option:active{ transform:scale(0.98); }
+  .quiz-option.correct{ background:var(--rose-500); border-color:var(--rose-500); color:var(--rose-050); }
+  .quiz-option.wrong{ border-color:var(--rose-500); opacity:0.5; }
+  .quiz-option.disabled{ pointer-events:none; }
+  .quiz-feedback{ margin-top:14px; font-size:13.5px; color:var(--wine-700); min-height:18px; }
+  .quiz-next{
+    margin-top:18px;
+    padding:10px 24px;
+    background:var(--rose-500);
+    color:var(--rose-050);
+    border:none;
+    border-radius:999px;
+    font-family:'Outfit','Cairo',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+    display:none;
+  }
+  .quiz-next.show{ display:inline-block; }
+  .quiz-result{ text-align:center; }
+  .quiz-result .score{ font-family:'Fraunces','El Messiri',serif; font-size:28px; color:var(--rose-500); margin-bottom:10px; }
+  .quiz-result p{ font-size:14.5px; color:var(--wine-900); line-height:1.6; margin:0; }
+
+  /* ---- locked letter ---- */
+  .lock-wrap{
+    width:100%; max-width:340px;
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:22px;
+    padding:32px 24px;
+    text-align:center;
+    box-shadow:0 20px 40px -20px rgba(90,34,51,0.2);
+    margin:0 auto;
+  }
+  .lock-icon{ font-size:28px; margin-bottom:14px; }
+  .lock-question{
+    font-family:'Fraunces','El Messiri',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:16px;
+    color:var(--wine-900);
+    line-height:1.5;
+    margin:0 0 8px;
+  }
+  .lock-romantic{
+    font-size:12.5px;
+    color:var(--rose-500);
+    opacity:0.9;
+    letter-spacing:0.02em;
+    margin:0 0 14px;
+  }
+  .lock-hint{ font-size:13px; color:var(--wine-700); opacity:0.75; line-height:1.55; margin:0 0 18px; }
+  .lock-input{
+    width:100%;
+    padding:13px 16px;
+    border-radius:14px;
+    border:1.5px solid var(--blush-300);
+    background:var(--blush-100);
+    font-family:'Outfit','Cairo',sans-serif;
+    font-size:16px;
+    color:var(--wine-900);
+    text-align:center;
+    margin-bottom:12px;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  .lock-input:focus{ outline:none; border-color:var(--rose-500); }
+  .lock-input.shake{ animation:lock-shake 0.4s ease; }
+  @keyframes lock-shake{
+    0%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-8px); }
+    40%{ transform:translateX(8px); }
+    60%{ transform:translateX(-6px); }
+    80%{ transform:translateX(6px); }
+  }
+  .lock-btn{
+    width:100%;
+    padding:13px;
+    background:var(--rose-500);
+    color:var(--rose-050);
+    border:none;
+    border-radius:999px;
+    font-family:'Outfit','Cairo',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+  }
+  .lock-btn:active{ transform:scale(0.97); }
+  .lock-error{ font-size:12.5px; color:var(--rose-600); margin-top:10px; min-height:16px; }
+  .secret-letter{
+    background:var(--paper);
+    border:1.5px solid var(--blush-300);
+    border-radius:22px;
+    padding:32px 26px;
+    max-width:380px;
+    box-shadow:0 20px 40px -20px rgba(90,34,51,0.2);
+    display:none;
+    margin:0 auto;
+  }
+  .secret-letter.shown{ display:block; animation:secret-fade-in 0.5s ease; }
+  @keyframes secret-fade-in{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .secret-letter p{
+    font-family:'Fraunces','El Messiri',serif;
+    font-style:italic;
+    font-size:15.5px;
+    line-height:1.75;
+    color:var(--wine-900);
+    margin:0 0 16px;
+    text-align:left;
+    white-space:pre-line;
   }
 
   @media (prefers-reduced-motion: reduce){
     .ambient span{ display:none; }
     .scroll-cue span{ animation:none; }
+    .gallery-item{ opacity:1; transform:none; transition:none; }
   }
 </style>
 </head>
@@ -662,8 +903,18 @@
 <section id="compliment-section">
   <p class="eyebrow">whenever you need it</p>
   <h2 id="complimentTitle">A little reminder</h2>
-  <div class="compliment-card" id="complimentCard">tap the button for something nice</div>
-  <button class="compliment-btn" id="complimentBtn">surprise me</button>
+  <div class="cookie-wrap" id="cookieWrap">
+    <div class="cookie" id="cookieEl">crack me</div>
+    <div class="cookie-hint" id="cookieHint">tap the cookie to crack it open</div>
+  </div>
+  <div class="fortune-strip" id="fortuneStrip"></div>
+</section>
+
+<!-- ===== quiz ===== -->
+<section id="quiz-section">
+  <p class="eyebrow">pop quiz</p>
+  <h2 id="quizTitle">How well do you know us?</h2>
+  <div class="quiz-card" id="quizCard"></div>
 </section>
 
 <!-- ===== chat ===== -->
@@ -697,6 +948,24 @@
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
+<!-- ===== locked letter ===== -->
+<section id="secret-section">
+  <p class="eyebrow">for your eyes only</p>
+  <h2 id="secretTitle">A locked letter</h2>
+  <div class="lock-wrap" id="lockWrap">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-question" id="lockQuestion"></p>
+    <p class="lock-hint" id="lockHint"></p>
+    <input type="text" class="lock-input" id="lockInput" placeholder="password" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text">
+    <button class="lock-btn" id="lockBtn">unlock</button>
+    <p class="lock-error" id="lockError"></p>
+  </div>
+  <div class="secret-letter" id="secretLetter">
+    <p id="secretText"></p>
+    <div class="signature" id="secretSign"></div>
+  </div>
+</section>
+
 <!-- ===== note ===== -->
 <section id="note">
   <p class="eyebrow">one more thing</p>
@@ -718,7 +987,7 @@
   <div class="lightbox-inner">
     <img id="lightboxImg" src="" alt="">
     <p class="lightbox-cap" id="lightboxCap"></p>
-    <button class="lightbox-close" id="lightboxClose">close</button>
+    <button class="lightbox-close" id="lightboxClose" aria-label="close">✕</button>
   </div>
 </div>
 
@@ -788,14 +1057,95 @@
 
     complimentTitle: "A little reminder",
     compliments: [
-      "You make hard days feel a lot more survivable.",
-      "You're the best part of my week, every week.",
-      "I still think I got the better end of this deal.",
-      "You're prettier than you think, and funnier than you know.",
-      "I like you even on the days you're difficult. Especially then, actually.",
-      "You make ordinary rooms feel warmer just by being in them.",
-      "I'm proud of you, even for the small things you don't think count."
+      "You've got a way of making even boring days feel like an inside joke.",
+      "I don't think you realize how much lighter I feel after talking to you.",
+      "You're the calm I didn't know I needed until I had it.",
+      "Every time you laugh at your own joke, I fall a little harder.",
+      "You handle hard things with more grace than you give yourself credit for.",
+      "I like being a better version of myself just because you're around.",
+      "You're not just my favorite person — you're my favorite habit."
     ],
+
+    quizTitle: "How well do you know us?",
+    quiz: {
+      questions: [
+        {
+          q: "On which app did we meet?",
+          options: ["Discord", "Instagram", "TikTok", "PornHub"],
+          correct: 0,
+          feedback: "of course you got that one."
+        },
+        {
+          q: "On which app did we start dating?",
+          options: ["TikTok", "Instagram", "Tender", "Discord"],
+          correct: 1,
+          feedback: "You have to answer this right ."
+        },
+        {
+          q: "The first nickname i gave u was?",
+          options: ["Meowlia", "مياوتي", "مزتي", "My lil prencess"],
+          correct: 1,
+          feedback: "you have to know that."
+        },
+        {
+          q: "My favorite anime is?",
+          options: ["Naruto", "Aot", "Overflow", "Tokyo ghoul"],
+          correct: 0,
+          feedback: "رازينجااان"
+        },
+        {
+          q: "My favorite Superhero is?",
+          options: [ "Iron-Ass", "El Fanan Btnak", "Spider-Man", "IDK my brean stopped working"],
+          correct: 2,
+          feedback: "With great power comes great responsibility."
+        },
+         {
+          q: "Our server name is?",
+          options: [ "هاتي بوسة يا بت", "Meowleys", "I love ur thigh", "Meowlek & Meowlia"],
+          correct: 2,
+          feedback: "Idc abt the answer i just love ur thighs 👩🏽‍🦲"
+        },
+         {
+          q: "My favorite Rapper is?",
+          options: [ "Marwan Mousa", "Abyusif", "Marwan Pablo", "Wegz"],
+          correct: 1,
+          feedback: "شعشع دربن دع"
+        },
+         {
+          q: "Can We have sex together?👀👀",
+          options: [ "Of course", "For sure", "Fuck you nigga ass" , "A , B" ],
+          correct: 3,
+          feedback: "6😃9"
+        },
+        {
+          q: "My favorite color is?",
+          options: ["Purple", "Green", "Red", "احم..."],
+          correct: 3,
+          feedback: "Idt that i even know"
+        },
+        {
+          q: "Do U love me?",
+          options: ["Yes", "Sure", "Of Course", "A , B and C"],
+          correct: 0,
+          allCorrect: true,
+          feedback: "yep, i think so"
+        }
+      ],
+      // shown at the end, based on score. Order from highest min to lowest.
+      results: [
+        { min: 3, text: "Perfect score. You know me better than I know myself." },
+        { min: 2, text: "Pretty close — clearly you're paying attention." },
+        { min: 0, text: "Okay, we need to talk more. Just kidding. I love you anyway." }
+      ]
+    },
+
+    secretTitle: "A locked letter",
+    secretLetter: {
+      question: "بلدنا المفضلة ",
+      hint: "Hint: بنقولها فالميمز",
+      password: "كفر المطايز",
+      text: "Alia, if you're reading this, it means you remembered — or you guessed until it worked, which honestly sounds like you too.\n\nThere are things I don't say enough, so here they are, just for you: thank you for staying, thank you for being patient with me, and thank you for being exactly the person I fell for.\n\nYou are my favorite hello and my hardest goodbye, and every version of my future has you in it.\n\nWhatever comes next, I want it with you."
+    },
 
     galleryTitle: "Random pic dump",
     gallery: [
@@ -834,6 +1184,10 @@
   document.getElementById('complimentTitle').textContent = CONFIG.complimentTitle;
   document.getElementById('chatTitle').textContent = CONFIG.chatTitle;
   document.getElementById('galleryTitle').textContent = CONFIG.galleryTitle;
+  document.getElementById('quizTitle').textContent = CONFIG.quizTitle;
+  document.getElementById('secretTitle').textContent = CONFIG.secretTitle;
+  document.getElementById('lockQuestion').textContent = CONFIG.secretLetter.question;
+  document.getElementById('lockHint').textContent = CONFIG.secretLetter.hint;
 
   // ---- ambient hearts ----
   const ambient = document.getElementById('ambient');
@@ -860,21 +1214,33 @@
     timelineList.appendChild(el);
   });
 
-  // ---- compliment generator ----
-  const complimentCard = document.getElementById('complimentCard');
-  const complimentBtn = document.getElementById('complimentBtn');
+  // ---- fortune cookie ----
+  const cookieEl = document.getElementById('cookieEl');
+  const cookieHint = document.getElementById('cookieHint');
+  const fortuneStrip = document.getElementById('fortuneStrip');
   let lastCompliment = -1;
-  complimentBtn.addEventListener('click', () => {
+  let cookieBusy = false;
+
+  document.getElementById('cookieWrap').addEventListener('click', () => {
+    if(cookieBusy) return;
+    cookieBusy = true;
+
     let idx;
     do{ idx = Math.floor(Math.random() * CONFIG.compliments.length); }
     while(idx === lastCompliment && CONFIG.compliments.length > 1);
     lastCompliment = idx;
-    complimentCard.style.opacity = 0;
+
+    cookieEl.classList.remove('cracked');
+    void cookieEl.offsetWidth;
+    cookieEl.classList.add('cracked');
+    fortuneStrip.classList.remove('shown');
+
     setTimeout(() => {
-      complimentCard.textContent = CONFIG.compliments[idx];
-      complimentCard.style.transition = 'opacity 0.3s ease';
-      complimentCard.style.opacity = 1;
-    }, 150);
+      fortuneStrip.textContent = CONFIG.compliments[idx];
+      fortuneStrip.classList.add('shown');
+      cookieHint.textContent = 'tap for another fortune';
+      cookieBusy = false;
+    }, 320);
   });
 
   // ---- chat replay ----
@@ -991,7 +1357,7 @@
   CONFIG.gallery.forEach((pic) => {
     const item = document.createElement('div');
     item.className = 'gallery-item';
-    item.innerHTML = `<img src="${pic.src}" alt="${pic.caption}" loading="lazy"><div class="gallery-cap">${pic.caption}</div>`;
+    item.innerHTML = `<img src="${pic.src}" alt="${pic.caption}" loading="lazy"><span class="gallery-heart">♥</span><div class="gallery-cap">${pic.caption}</div>`;
     item.addEventListener('click', () => {
       lightboxImg.src = pic.src;
       lightboxImg.alt = pic.caption;
@@ -1004,6 +1370,20 @@
   function closeLightbox(){ lightbox.classList.remove('open'); }
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+
+  // stagger the gallery items in as they scroll into view
+  const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+  const galleryObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if(entry.isIntersecting){
+        const idx = Array.from(galleryItems).indexOf(entry.target);
+        entry.target.style.transitionDelay = `${(idx % 6) * 70}ms`;
+        entry.target.classList.add('in-view');
+        galleryObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  galleryItems.forEach((item) => galleryObserver.observe(item));
 
   // ---- envelope open/close ----
   const envelope = document.getElementById('envelope');
@@ -1112,6 +1492,95 @@
 
   // ---- footer badge easter egg ----
   document.getElementById('footerBadge').addEventListener('click', heartShower);
+
+  // ---- quiz ----
+  const quizCard = document.getElementById('quizCard');
+  (function initQuiz(){
+    const total = CONFIG.quiz.questions.length;
+    let current = 0;
+    let score = 0;
+
+    function showQuestion(i){
+      const q = CONFIG.quiz.questions[i];
+      quizCard.innerHTML = `
+        <div class="quiz-progress">question ${i+1} of ${total}</div>
+        <div class="quiz-question">${q.q}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, idx) => `<button class="quiz-option" data-idx="${idx}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next" id="quizNext">${i === total - 1 ? 'see result' : 'next question'}</button>
+      `;
+      const optionEls = quizCard.querySelectorAll('.quiz-option');
+      const feedback = document.getElementById('quizFeedback');
+      const nextBtn = document.getElementById('quizNext');
+
+      optionEls.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          optionEls.forEach(b => b.classList.add('disabled'));
+          const idx = parseInt(btn.dataset.idx, 10);
+          if(q.allCorrect || idx === q.correct){
+            btn.classList.add('correct');
+            score++;
+          } else {
+            btn.classList.add('wrong');
+            optionEls[q.correct].classList.add('correct');
+          }
+          feedback.textContent = q.feedback || '';
+          nextBtn.classList.add('show');
+        }, { once: true });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        current++;
+        if(current < total) showQuestion(current);
+        else showResult();
+      });
+    }
+
+    function showResult(){
+      const outcome = CONFIG.quiz.results.find(r => score >= r.min) || CONFIG.quiz.results[CONFIG.quiz.results.length - 1];
+      quizCard.innerHTML = `
+        <div class="quiz-result">
+          <div class="score">${score} / ${total}</div>
+          <p>${outcome.text}</p>
+        </div>
+      `;
+    }
+
+    showQuestion(0);
+  })();
+
+  // ---- secret locked letter ----
+  const lockWrap = document.getElementById('lockWrap');
+  const lockInput = document.getElementById('lockInput');
+  const lockBtn = document.getElementById('lockBtn');
+  const lockError = document.getElementById('lockError');
+  const secretLetterEl = document.getElementById('secretLetter');
+
+  function tryUnlock(){
+    const guess = lockInput.value.trim().toLowerCase();
+    const answer = String(CONFIG.secretLetter.password).trim().toLowerCase();
+    if(guess.length === 0) return;
+    if(guess === answer){
+      lockWrap.style.display = 'none';
+      document.getElementById('secretText').textContent = CONFIG.secretLetter.text;
+      document.getElementById('secretSign').textContent = `— ${CONFIG.him}`;
+      secretLetterEl.classList.add('shown');
+    } else {
+      lockError.textContent = "not quite — try again.";
+      lockInput.classList.remove('shake');
+      void lockInput.offsetWidth;
+      lockInput.classList.add('shake');
+    }
+  }
+  lockBtn.addEventListener('click', tryUnlock);
+  lockInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      tryUnlock();
+    }
+  });
 </script>
 
 </body>
